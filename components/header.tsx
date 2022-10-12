@@ -13,7 +13,7 @@ import {
 } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import {
-  IconStar,
+  IconLogout,
   IconChevronDown,
 } from '@tabler/icons';
 import { SwitchToggle } from './themetoggle';
@@ -26,7 +26,6 @@ const useStyles = createStyles((theme) => ({
     borderBottom: `1px solid ${
       theme.colorScheme === 'dark' ? 'transparent' : theme.colors.gray[2]
     }`,
-    marginBottom: 120,
   },
 
   mainSection: {
@@ -95,8 +94,8 @@ export function HeaderTabs({ user, tabs }: HeaderTabsProps) {
   const [userMenuOpened, setUserMenuOpened] = useState(false);
 
   const items = tabs.map((tab) => (
-    <Link href={tab.link}>
-      <Tabs.Tab value={tab.title} key={tab.title}>
+    <Link href={tab.link} key={tab.title}>
+      <Tabs.Tab value={tab.title}>
         {tab.title}
       </Tabs.Tab>
     </Link>
@@ -134,9 +133,10 @@ export function HeaderTabs({ user, tabs }: HeaderTabsProps) {
                 className={cx(classes.user, { [classes.userActive]: userMenuOpened })}
               >
                 <Group spacing={7}>
-                  <Avatar src={user.image} alt={user.name} radius="xl" size={20} />
+                  <Avatar src={user.image} alt={user.name} size={30} />
                   <Text weight={500} size="sm" sx={{ lineHeight: 1 }} mr={3}>
-                    {user.name}
+                    {user.name == 'Войти' && <Link href='/auth'>Войти</Link>}
+                    {user.name != 'Войти' && user.name}
                   </Text>
                   <IconChevronDown size={12} stroke={1.5} />
                 </Group>
@@ -146,8 +146,8 @@ export function HeaderTabs({ user, tabs }: HeaderTabsProps) {
               <Menu.Item>
                 <SwitchToggle />
               </Menu.Item>
-              <Menu.Item icon={<IconStar size={14} color={theme.colors.yellow[6]} stroke={1.5} />}>
-                Saved posts
+              <Menu.Item icon={<IconLogout size={14} color={theme.colors.yellow[6]} stroke={1.5} />}>
+                Выйти из аккаунта
               </Menu.Item>
             </Menu.Dropdown>
           </Menu>

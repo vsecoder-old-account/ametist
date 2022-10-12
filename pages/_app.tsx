@@ -20,14 +20,14 @@ export default function App(props: AppProps) {
     <>
       <Head>
         <title>Amethyst RP</title>
-        <link rel="shortcut icon" href="http://79.137.195.9:1337/uploads/favicon_64x64_a4ce6bfda7.png" />
+        <link rel="shortcut icon" href="/favicon.png" />
         <meta
           name="viewport"
           content="minimum-scale=1, initial-scale=1, width=device-width"
         />
       </Head>
       <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
-        <MantineProvider theme={{ colorScheme }} withGlobalStyles withNormalizeCSS>
+        <MantineProvider theme={{ colorScheme, loader: 'bars' }} withGlobalStyles withNormalizeCSS >
           <Component {...pageProps} />
         </MantineProvider>
       </ColorSchemeProvider>

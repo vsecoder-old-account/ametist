@@ -1,8 +1,13 @@
 import { HeaderTabs } from '../components/header';
 import { FooterSocial } from '../components/footer';
-//import { FeaturesCard } from './components/card';
+import { CardBlock } from '../components/card';
+import { FeaturesTitle } from '../components/section';
+import { FaqSimple } from '../components/faq';
+import { CardsCarousel } from '../components/carousels';
 
 import { createStyles, Button, Container } from '@mantine/core';
+import { useEffect, useState } from 'react'
+import { parseCookies } from 'nookies';
 
 const useStyles = createStyles((theme) => ({
   banner: {
@@ -52,15 +57,38 @@ const useStyles = createStyles((theme) => ({
   btn: {
     zIndex: 10,
     margin: '15px'
-  }
+  },
+  conteiner: {
+    '&::after': {
+      content: '""',
+      display: 'block',
+      backgroundColor: theme.fn.primaryColor(),
+      width: 300,
+      height: 2,
+      margin: '0 auto',
+      marginTop: 50
+    },
+  },
 }));
 
 export default function IndexPage() {
   const { classes } = useStyles();
+  const [name, setName] = useState('...')
+  const jwt = parseCookies().jwt;
+  const id = parseCookies().id;
+  //const username = parseCookies().username;
+  useEffect(() => {
+    const n = parseCookies().username;
+    if (n) {
+      setName(n)
+    } else {
+      setName('Войти')
+    }
+  }, [])
 
   return (
     <>
-      <HeaderTabs user={{name: 'Pain_4986', image: ''}} tabs={[{title: 'Wiki', link: '/wiki/start'}, {title: 'Заявка', link: '/submission'}]} />
+      <HeaderTabs user={{name: name, image: 'https://minotar.net/helm/'+name}} tabs={[{title: 'Wiki', link: '/wiki/start'}, {title: 'Заявка', link: '/submission'}]} />
       <div className={classes.banner}>
         <div className={classes.content}>
           <div className={classes.inner}>
@@ -87,10 +115,30 @@ export default function IndexPage() {
             <p className={classes.p}>Пиратка Java Edition 1.19.2</p>
           </div>
         </div>
-        <img src='https://rp.plo.su/assets/newlanding/banner.webp' className={classes.banner_img} />
+        <img src='/banner.webp' className={classes.banner_img} />
       </div>
-      <Container my="md">
-        1
+      <Container my="md" size={1262} mt={100} className={classes.conteiner}>
+        <CardBlock 
+          title='Присоединяйтесь к государствам' 
+          image='/commune.webp' 
+          text='Чтобы играть, вам необходимо вступить в 1 из 3х государств, у каждых своя власть, свои планы и своя территория!' />
+        <CardBlock 
+          title='Наблюдайте за новостями' 
+          image='/event.webp' 
+          text='Очень часто будут проходить ивенты, которые помогут вам выделиться или разбогатеть!' />
+        <CardBlock 
+          title='Помогайте государству' 
+          image='/rule.webp' 
+          text='Чем выше государсто, больше актив и лучше сплочённость - тем богаче его жители!' />
+      </Container>
+      <Container my="md" size={1262} mt={50} className={classes.conteiner}>
+        <FeaturesTitle />
+      </Container>
+      <Container my="md" size={1262} mt={50} className={classes.conteiner}>
+        <FaqSimple />
+      </Container>
+      <Container my="md" size={1262} mt={50} className={classes.conteiner}>
+        <CardsCarousel />
       </Container>
       <FooterSocial />
     </>

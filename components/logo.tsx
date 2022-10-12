@@ -24,7 +24,7 @@ export function AmethystLogo() {
   return (
     <Link href='/' className={classes.link}>
       <div className={classes.inline}>
-        <img src="http://79.137.195.9:1337/uploads/favicon_64x64_a4ce6bfda7.png" className={classes.image} />
+        <img src="/favicon.png" className={classes.image} />
         <h2 className={classes.inline}>Amethyst</h2>
       </div>
     </Link>
