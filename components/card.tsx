@@ -1,13 +1,17 @@
 import { Card, Image, Text, Group, createStyles } from '@mantine/core';
 
-const useStyles = createStyles((theme) => ({
+const useStyles = createStyles((theme, getRef) => ({
   card: {
     width: '350px',
     display: 'inline-block',
     padding: '10px',
-    margin: '30px',
-    height: '335px'
-  }
+    margin: '15px',
+    height: '335px',
+    textAlign: 'left',
+    [`@media (max-width: 400px)`]: {
+      margin: 'auto'
+    },
+  },
 }));
 
 interface CardData {

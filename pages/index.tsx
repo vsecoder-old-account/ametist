@@ -69,6 +69,18 @@ const useStyles = createStyles((theme) => ({
       marginTop: 50
     },
   },
+  conteiner1: {
+    textAlign: 'center',
+    '&::after': {
+      content: '""',
+      display: 'block',
+      backgroundColor: theme.fn.primaryColor(),
+      width: 300,
+      height: 2,
+      margin: '0 auto',
+      marginTop: 50
+    },
+  },
 }));
 
 export default function IndexPage() {
@@ -117,7 +129,7 @@ export default function IndexPage() {
         </div>
         <img src='/banner.webp' className={classes.banner_img} />
       </div>
-      <Container my="md" size={1262} mt={100} className={classes.conteiner}>
+      <Container my="md" size={1182} mt={100} className={classes.conteiner1}>
         <CardBlock 
           title='Присоединяйтесь к государствам' 
           image='/commune.webp' 

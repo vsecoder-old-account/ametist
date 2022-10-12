@@ -108,14 +108,19 @@ export function CardsCarousel() {
   ));
 
   return (
-    <Carousel
-      slideSize="50%"
-      breakpoints={[{ maxWidth: 'sm', slideSize: '100%', slideGap: 2 }]}
-      slideGap="xl"
-      align="start"
-      slidesToScroll={mobile ? 1 : 2}
-    >
-      {slides}
-    </Carousel>
+    <>
+      <Title align="center" mb={20}>
+        Что у нас происходит
+      </Title>
+      <Carousel
+        slideSize="50%"
+        breakpoints={[{ maxWidth: 'sm', slideSize: '100%', slideGap: 2 }]}
+        slideGap="xl"
+        align="start"
+        slidesToScroll={mobile ? 1 : 2}
+      >
+        {slides}
+      </Carousel>
+    </>
   );
 }
