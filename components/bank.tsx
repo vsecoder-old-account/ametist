@@ -62,7 +62,7 @@ export function Bank() {
   const form = useForm({
     initialValues: {
       nick: '',
-      sum: 0,
+      sum: 1,
     },
     validate: {
       nick: (value) => (value.length < 3 ? 'Ник не может быть меньше 3х символов' : null)
