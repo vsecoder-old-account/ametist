@@ -15,7 +15,7 @@ export default function IndexPage() {
 
   return (
     <>
-      <HeaderTabs user={{name: 'Pain_4986', image: ''}} tabs={[{title: 'Wiki', link: '/wiki/start'}, {title: 'Заявка', link: '/submission'}]} />
+      <HeaderTabs />
       <Container my="md">
         <TextInput
           label="Имя(настоящее):"
