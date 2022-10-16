@@ -1,5 +1,5 @@
 import { AmethystLogo } from './logo';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
   createStyles,
   Container,
@@ -15,9 +15,12 @@ import { useDisclosure } from '@mantine/hooks';
 import {
   IconLogout,
   IconChevronDown,
+  IconUserExclamation,
+  IconUserPlus
 } from '@tabler/icons';
 import { SwitchToggle } from './themetoggle';
 import Link from 'next/link';
+import { parseCookies } from 'nookies';
 
 const useStyles = createStyles((theme) => ({
   header: {
@@ -83,23 +86,24 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-interface HeaderTabsProps {
-  user: { name: string; image: string };
-  tabs: { title: string; link: string }[];
-}
-
-export function HeaderTabs({ user, tabs }: HeaderTabsProps) {
+export function HeaderTabs() {
   const { classes, theme, cx } = useStyles();
   const [opened, { toggle }] = useDisclosure(false);
   const [userMenuOpened, setUserMenuOpened] = useState(false);
 
-  const items = tabs.map((tab) => (
-    <Link href={tab.link} key={tab.title}>
-      <Tabs.Tab value={tab.title}>
-        {tab.title}
-      </Tabs.Tab>
-    </Link>
-  ));
+  const [name, setName] = useState('...')
+  const jwt = parseCookies().jwt;
+  const id = parseCookies().id;
+  //const username = parseCookies().username;
+  useEffect(() => {
+    const n = parseCookies().username;
+    if (n) {
+      setName(n)
+    } else {
+      setName('Войти')
+    }
+  }, [])
+  const user= {name: name, image: 'https://minotar.net/helm/'+name}
 
   return (
     <div className={classes.header}>
@@ -108,18 +112,6 @@ export function HeaderTabs({ user, tabs }: HeaderTabsProps) {
           <AmethystLogo />
 
           <Burger opened={opened} onClick={toggle} className={classes.burger} size="sm" />
-
-          <Tabs
-            defaultValue="Home"
-            variant="outline"
-            classNames={{
-              root: classes.tabs,
-              tabsList: classes.tabsList,
-              tab: classes.tab,
-            }}
-          >
-            <Tabs.List>{items}</Tabs.List>
-          </Tabs>
 
           <Menu
             width={260}
@@ -146,9 +138,27 @@ export function HeaderTabs({ user, tabs }: HeaderTabsProps) {
               <Menu.Item>
                 <SwitchToggle />
               </Menu.Item>
-              <Menu.Item icon={<IconLogout size={14} color={theme.colors.yellow[6]} stroke={1.5} />}>
-                Выйти из аккаунта
-              </Menu.Item>
+              {user.name != 'Войти' && 
+              <>
+                <Link href={'/p/'+user.name}>
+                  <Menu.Item icon={<IconUserExclamation size={14} color={theme.colors.yellow[6]} stroke={1.5} />}>
+                    Профиль
+                  </Menu.Item>
+                </Link>
+                <Link href='/logout'>
+                  <Menu.Item icon={<IconLogout size={14} color={theme.colors.yellow[6]} stroke={1.5} />}>
+                    Выйти из аккаунта
+                  </Menu.Item>
+                </Link>
+              </>
+              }
+              {user.name == 'Войти' && 
+                <Link href='/auth'>
+                  <Menu.Item icon={<IconUserPlus size={14} color={theme.colors.yellow[6]} stroke={1.5} />}>
+                    Войти
+                  </Menu.Item>
+                </Link>
+              }
             </Menu.Dropdown>
           </Menu>
         </Group>

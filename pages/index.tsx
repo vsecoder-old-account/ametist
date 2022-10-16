@@ -5,9 +5,10 @@ import { FeaturesTitle } from '../components/section';
 import { FaqSimple } from '../components/faq';
 import { CardsCarousel } from '../components/carousels';
 
+import Router from 'next/router';
 import { createStyles, Button, Container } from '@mantine/core';
 import { useEffect, useState } from 'react'
-import { parseCookies } from 'nookies';
+import { useScrollIntoView } from '@mantine/hooks';
 
 const useStyles = createStyles((theme) => ({
   banner: {
@@ -85,22 +86,11 @@ const useStyles = createStyles((theme) => ({
 
 export default function IndexPage() {
   const { classes } = useStyles();
-  const [name, setName] = useState('...')
-  const jwt = parseCookies().jwt;
-  const id = parseCookies().id;
-  //const username = parseCookies().username;
-  useEffect(() => {
-    const n = parseCookies().username;
-    if (n) {
-      setName(n)
-    } else {
-      setName('Войти')
-    }
-  }, [])
+  const { scrollIntoView, targetRef } = useScrollIntoView<HTMLDivElement>({ offset: 60 });
 
   return (
     <>
-      <HeaderTabs user={{name: name, image: 'https://minotar.net/helm/'+name}} tabs={[{title: 'Wiki', link: '/wiki/start'}, {title: 'Заявка', link: '/submission'}]} />
+      <HeaderTabs />
       <div className={classes.banner}>
         <div className={classes.content}>
           <div className={classes.inner}>
@@ -115,12 +105,12 @@ export default function IndexPage() {
                 color="gray"
                 size="md"
                 m={10}
-                onClick={() => {alert('Bruh')}}
+                onClick={() => {Router.push('/submission')}}
               >Подать заявку</Button>
               <Button
                 variant="subtle"
                 m={10}
-                onClick={() => {alert('Bruh')}}
+                onClick={() => scrollIntoView({ alignment: 'center' })}
                 className={classes.white}
               >О сервере</Button>
             </div>
@@ -143,7 +133,7 @@ export default function IndexPage() {
           image='/rule.webp' 
           text='Чем выше государсто, больше актив и лучше сплочённость - тем богаче его жители!' />
       </Container>
-      <Container my="md" size={1262} mt={50} className={classes.conteiner}>
+      <Container my="md" size={1262} mt={50} className={classes.conteiner} ref={targetRef}>
         <FeaturesTitle />
       </Container>
       <Container my="md" size={1262} mt={50} className={classes.conteiner}>
