@@ -1,0 +1,8 @@
+{
+  "name": "Amethyst RP",
+  "description": "A website as Amethyst RP",
+  "repository": "https://github.com/vsecoder/ametist",
+  "logo": "https://raw.githubusercontent.com/vsecoder/ametist/main/public/favicon.png",
+  "keywords": ["node", "react", "nextjs"],
+  "image": "heroku/nodejs"
+}
