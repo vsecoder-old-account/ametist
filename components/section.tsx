@@ -1,5 +1,6 @@
 import { createStyles, Title, SimpleGrid, Text, Button, ThemeIcon, Grid, Col } from '@mantine/core';
 import { IconMicrophone, IconMap, IconAlignJustified, IconDiamond } from '@tabler/icons';
+import Router from 'next/router';
 
 const useStyles = createStyles((theme) => ({
   wrapper: {
@@ -77,6 +78,7 @@ export function FeaturesTitle() {
 
           <Button
             variant="gradient"
+            onClick={() => {Router.push('/submission')}}
             gradient={{ deg: 133, from: 'blue', to: 'cyan' }}
             size="lg"
             radius="md"
